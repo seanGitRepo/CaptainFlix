@@ -1,0 +1,15 @@
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\bin\Debug\net6.0\CAptainFlix.exe
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\bin\Debug\net6.0\CAptainFlix.deps.json
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\bin\Debug\net6.0\CAptainFlix.runtimeconfig.json
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\bin\Debug\net6.0\CAptainFlix.dll
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\bin\Debug\net6.0\CAptainFlix.pdb
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.csproj.AssemblyReference.cache
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.AssemblyInfoInputs.cache
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.AssemblyInfo.cs
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.csproj.CoreCompileInputs.cache
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.dll
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\refint\CAptainFlix.dll
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.pdb
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\CAptainFlix.genruntimeconfig.cache
+C:\Users\seans\Desktop\tafe\coding\CAptainFlix\CAptainFlix\obj\Debug\net6.0\ref\CAptainFlix.dll
