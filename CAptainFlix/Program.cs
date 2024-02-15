@@ -44,7 +44,6 @@ var sesh222 = theatre2.ScheduleSession(DateTime.Now, hangover);
 var sesh231 = theatre2.ScheduleSession(DateTime.Now, oppenheimer);
 var sesh232 = theatre2.ScheduleSession(two, oppenheimer);
 
-
 var seat1 = theatre1.FindSeatByCode("A-4");
 var seat2 = theatre1.FindSeatByCode("B-2");
 var seat3 = theatre1.FindSeatByCode("C-5");
@@ -53,11 +52,11 @@ var seat5 = theatre1.FindSeatByCode("C-2");
 var seat6 = theatre1.FindSeatByCode("C-3");
 
 var ticketTest1 = sesh111.IssueTicket("Daniel",seat1);
-var ticketTest2 = sesh111.IssueTicket("Daniel", seat2);
-var ticketTest3 = sesh111.IssueTicket("Daniel", seat3);
-var ticketTest4 = sesh111.IssueTicket("Daniel", seat4);
-var ticketTest5 = sesh111.IssueTicket("Daniel", seat5);
-var ticketTest6 = sesh111.IssueTicket("Daniel", seat6);
+var ticketTest2 = sesh111.IssueTicket("Oliver", seat2);
+var ticketTest3 = sesh111.IssueTicket("Sean", seat3);
+var ticketTest4 = sesh111.IssueTicket("Saxon", seat4);
+var ticketTest5 = sesh111.IssueTicket("James", seat5);
+var ticketTest6 = sesh111.IssueTicket("George", seat6);
 
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -261,8 +260,13 @@ string userSelectionTicket = Console.ReadLine();
 // chosenFilm,chosenCinema,ChosenSession creates my current profile of the person
 
 
+//TODO: Create the way to select a ticket
 
+//TODO: Create a method to check double bookings when issuing
 
+//TODO: Data creation, excel to here on bookings
+
+//TODO: There could be an easy way to control booking times with numbers, as supposed to the sesh111 method, even though in my mind that works qutie well.
 
 
 
