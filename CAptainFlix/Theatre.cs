@@ -32,6 +32,8 @@ namespace CAptainFlix
         }
 
 
+       
+
         public Seat FindSeatByCode(string code) => Seats.FirstOrDefault(s => s.ToString() == code);
         //this is a method instead of a loop
 

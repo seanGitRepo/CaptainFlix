@@ -12,7 +12,7 @@ var oppenheimer = company.RegisterMovie("Oppenheimer", "R", 180);
 // two theatres
 var theatre1 = company.AddTheatre("Events");
 var theatre2 = company.AddTheatre("Hoyts");
-
+// now a program generates seats for the following (our data entry)
 for (char  row = 'A'; row <= 'G'; row++)
 {
     for(int seatNumber = 0; seatNumber <= 10; seatNumber++)
@@ -30,24 +30,40 @@ for (char  row = 'A'; row <= 'G'; row++)
 DateTime one = new DateTime(2024, 2, 14, 14, 30,0,0);
 DateTime two = new DateTime(2024, 2, 15, 22, 30, 0, 0, 0);
 
-theatre1.ScheduleSession(one, starWars);
-theatre1.ScheduleSession(DateTime.Now, starWars);
-theatre1.ScheduleSession(two, hangover);
-theatre1.ScheduleSession(DateTime.Now, hangover);
-theatre1.ScheduleSession(DateTime.Now, oppenheimer);
-theatre1.ScheduleSession(two, oppenheimer);
+var sesh111 = theatre1.ScheduleSession(one, starWars);
+var sesh112 = theatre1.ScheduleSession(DateTime.Now, starWars);
+var sesh121 = theatre1.ScheduleSession(one, hangover);
+var sesh122 = theatre1.ScheduleSession(DateTime.Now, hangover);
+var sesh131 = theatre1.ScheduleSession(DateTime.Now, oppenheimer);
+var sesh132 = theatre1.ScheduleSession(one, oppenheimer);
 
-theatre2.ScheduleSession(two, starWars);
-theatre2.ScheduleSession(DateTime.Now, starWars);
-theatre2.ScheduleSession(two, hangover);
-theatre2.ScheduleSession(DateTime.Now, hangover);
-theatre2.ScheduleSession(DateTime.Now, oppenheimer);
-theatre2.ScheduleSession(one, oppenheimer);
-
-//Completion of data entry shennaigans ------------------------------------------------------------------------------------
+var sesh211 = theatre2.ScheduleSession(two, starWars);
+var sesh212 = theatre2.ScheduleSession(DateTime.Now, starWars);
+var sesh221 = theatre2.ScheduleSession(two, hangover);
+var sesh222 = theatre2.ScheduleSession(DateTime.Now, hangover);
+var sesh231 = theatre2.ScheduleSession(DateTime.Now, oppenheimer);
+var sesh232 = theatre2.ScheduleSession(two, oppenheimer);
 
 
-// now a program generates seats for the following (our data entry)
+var seat1 = theatre1.FindSeatByCode("A-4");
+var seat2 = theatre1.FindSeatByCode("B-2");
+var seat3 = theatre1.FindSeatByCode("C-5");
+var seat4 = theatre1.FindSeatByCode("C-4");
+var seat5 = theatre1.FindSeatByCode("C-2");
+var seat6 = theatre1.FindSeatByCode("C-3");
+
+var ticketTest1 = sesh111.IssueTicket("Daniel",seat1);
+var ticketTest2 = sesh111.IssueTicket("Daniel", seat2);
+var ticketTest3 = sesh111.IssueTicket("Daniel", seat3);
+var ticketTest4 = sesh111.IssueTicket("Daniel", seat4);
+var ticketTest5 = sesh111.IssueTicket("Daniel", seat5);
+var ticketTest6 = sesh111.IssueTicket("Daniel", seat6);
+
+
+// ---------------------------------------------------------------------------------------------------------------
+
+
+//I need a theatre selection first.
 
 Console.WriteLine("Select a Movie");
 
@@ -60,11 +76,12 @@ for (int i = 0; i < company.Movies.Count; i++)
 var a = true;
 
 int userSelection = -1;
+
 while (a == true)
 {//tests if the user input is valid.
     try
     {
-         userSelection = int.Parse(Console.ReadLine()) - 1;
+        userSelection = int.Parse(Console.ReadLine()) - 1;
         Console.Clear(); //another chat gpt goodie that i asked <3
         Console.WriteLine(company.Movies[userSelection].Title);
         a = false;
@@ -78,35 +95,170 @@ while (a == true)
 }
 
 //makes my code easier to follow zzz
-var userSelectionMovie = company.Movies[userSelection].Title;
+var chosenFilm = company.Movies[userSelection].Title; //hypothetically starwars
 
 //now code that shows the avaliable sessuions for the list of films.
 
 
 //I want to loop through the threates that are avaliable, show on the screen hoyts and event.
-Console.WriteLine("Avaliable Sessions ");
-for (int i = 0; i < company.Theatres.Count; i++)
-{
-    Console.WriteLine($"{i + 1}. {company.Theatres[i].Name}");
-    int counter = 0;
+
+//there could be an application here where it takes inputs to display the screen
+// so maybe a class that is purely for displaying stuff.
+var chosenCinema = company.Theatres[0];//get by
+
+    Console.WriteLine("Avaliable Sessions ");
+    for (int i = 0; i < company.Theatres.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {company.Theatres[i].Name}");
+
+
+    int current = company.Theatres.Count +1;
+
+    for (int check = 0; check < company.Theatres.Count; check++)
+    {
+        if(company.Theatres[i].Name == company.Theatres[check].Name)
+        {
+            current = check;
+        }
+
+    }
+
+         chosenCinema = company.Theatres[current]; // this line selects whatever cinema has been written on the console.
+    //as I was having an issue of selecting the correct session times.
+ 
+  
+
+        int counter = 0;
     for (int j = 0; j < company.Theatres[i].Sessions.Count; j++)
     {
-       
+
         //i need something that only selects the movies that i want. (which is userselection)
-        
-        if(userSelectionMovie.ToString() == theatre1.Sessions[j].Movie.Title)
-        {
-        
-            Console.WriteLine($"\t{counter + 1}.{theatre1.Sessions[j].StartDateTime}");
-            counter++;
+        //this code only prints the times for the one theatre. 
+        if (chosenFilm.ToString() == chosenCinema.Sessions[j].Movie.Title) { 
+            
+                Console.WriteLine($"\t{counter + 1}.{chosenCinema.Sessions[j].StartDateTime}");
+                counter++;
+            }
+
         }
-        
+
+
     }
+
+//Now i need to select the time and the cinema. 
+
+
+var b = true;
+int userSelectionCinema = -1;
+
+while (b)
+{
+    try
+    {
+        userSelectionCinema = int.Parse(Console.ReadLine()) - 1;
+        chosenCinema = company.Theatres[userSelectionCinema];
+        Console.Clear();
+        Console.WriteLine(chosenCinema.Name);
+        int counter = 0;
+        for (int j = 0; j < company.Theatres[userSelectionCinema].Sessions.Count; j++)
+        {
+
+            //i need something that only selects the movies that i want. (which is userselection)
+
+            if (chosenFilm.ToString() == theatre1.Sessions[j].Movie.Title)
+            {
+
+                Console.WriteLine($"\t{counter + 1}.{theatre1.Sessions[j].StartDateTime}");
+                counter++;
+            }
+
+        }
+
+      
+
+        b = false;
+    }
+    catch
+    {
+        b = true;
+        Console.WriteLine("Please select a valid Cinema");
+        //need to print the times again when we have created cleaner code.
+    }
+
 
 
 }
 
-//showings.
+//selecting a valid session time
+int userSelectionSession = -1;
+
+
+var c = true;
+
+while (c)
+{
+    try
+    {
+        userSelectionSession = int.Parse(Console.ReadLine()) - 1;
+        Console.Clear();
+        Console.WriteLine(company.Theatres[userSelectionCinema].Name);
+        Console.WriteLine($"\t{company.Theatres[userSelectionCinema].Sessions[userSelectionSession].StartDateTime}");
+        int counter = 0;
+      
+        c = false;
+    }
+    catch
+    {
+        c = true;
+        Console.WriteLine("Please select a valid session time");
+        //need to print the times again when we have created cleaner code.
+    }
+
+
+
+}
+var chosenSession = company.Theatres[userSelectionCinema].Sessions[userSelectionSession];
+
+
+//now i need code that shows the avaliable seats for the selected session.
+
+// a - f 
+// 0 - 10
+
+//lets start with a for loop that just shows a 11 wide and 6 high 
+
+List<Seat> availSeats = chosenSession.GetavaliableSeats(chosenCinema);
+int counter2 = 0;
+for (char row = 'A'; row < 'G'; row++)
+{
+    Console.Write("\n");
+        Console.Write($"{row} --");
+
+    for (int num = 0; num < 11; num++)
+    {
+        string seatCheck = $"{row}-{num}";
+       
+
+        if (availSeats[counter2].Row == 'X')
+        {
+            Console.Write($"  [X]");
+
+        }
+        else
+        {
+            Console.Write($"  [{num}]");
+        }
+
+        counter2 ++;
+    }
+}
+Console.WriteLine("");
+Console.WriteLine("\nPlease select an avaliable ticket");
+// now we need a program that checks if a seat is already taken
+string userSelectionTicket = Console.ReadLine();
+
+// NOOOOOOOOOOOOOOOOOOOOOW 
+// chosenFilm,chosenCinema,ChosenSession creates my current profile of the person
 
 
 
@@ -117,6 +269,3 @@ for (int i = 0; i < company.Theatres.Count; i++)
 
 
 
-
-var seat = theatre1.FindSeatByCode("C-3");
-//var ticket = session.IssueTicket("Fred", seat);
