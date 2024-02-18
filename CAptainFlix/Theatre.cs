@@ -39,9 +39,9 @@ namespace CAptainFlix
 
         public List<Session> Sessions { get; } = new();
 
-        public Session ScheduleSession(DateTime startDateTime, Movie movie)
+        public Session ScheduleSession(string sessionCode, DateTime startDateTime, Movie movie)
         {
-            var session = new Session(startDateTime,this , movie);
+            var session = new Session(sessionCode, startDateTime,this , movie);
             Sessions.Add(session);
             return session;
         }

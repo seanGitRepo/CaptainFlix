@@ -2,16 +2,75 @@
 
 
 using CAptainFlix;
+using System.Runtime.CompilerServices;
 
-var company = new Company("Captain Flix");
-//Data entry shennaigans ------------------------------------------------------------------------------------
-var starWars = company.RegisterMovie("Star Wars","PG",180);
-var hangover = company.RegisterMovie("The Hangover", "R", 150);
-var oppenheimer = company.RegisterMovie("Oppenheimer", "R", 180);
-
-// two theatres
+var company = new Company("CaptainFlix");
 var theatre1 = company.AddTheatre("Events");
 var theatre2 = company.AddTheatre("Hoyts");
+//Data entry shennaigans ------------------------------------------------------------------------------------
+
+//lets now try to load just the movies.
+
+//borrowed from prior project https://github.com/seanGitRepo/aiToHuman.txt/blob/main/textApp/textStorage.cs
+StreamReader movieTitles = new StreamReader($"../../../{company.TradingName}Data/movies.csv");
+StreamReader movieTimes = new StreamReader($"../../../{company.TradingName}Data/times.csv");
+StreamReader movieSessions = new StreamReader($"../../../{company.TradingName}Data/sessions.csv");
+
+List<string> foundTitles = new List<string>();
+string line; 
+while((line = movieTitles.ReadLine())!= null)
+{
+    string[] split = line.Split(',');
+
+    company.RegisterMovie(split[0], split[1], int.Parse(split[2]));
+
+    //this now sucesfully registers the movies into the company
+
+}
+
+List<DateTime> foundTimes = new List<DateTime>();
+
+while ((line = movieTimes.ReadLine()) != null)
+{
+    string[] split = line.Split(',');//not sure why it doesn't let me just int.parse the split entitty 
+    List<int> ints = new List<int>();
+    for (int i = 0; i < split.Length; i++)
+    {
+        int aaa = int.Parse(split[i]);
+        ints.Add(aaa);
+
+    }
+    DateTime tempa = new DateTime(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5], ints[6]);
+    foundTimes.Add(tempa);
+
+    //this now sucesfully registers the times into the program
+}
+
+
+Random random = new Random();
+while ((line = movieSessions.ReadLine()) != null)
+{
+    int randomSelectT = random.Next(0,14);
+    int randomSelectM = random.Next(0,3);
+    if (line[4] == '1')
+    {
+        theatre1.ScheduleSession(line, foundTimes[randomSelectT], company.Movies[randomSelectM]);
+
+    }
+    else
+    {
+        theatre2.ScheduleSession(line, foundTimes[randomSelectT], company.Movies[randomSelectM]);
+
+    }
+
+}
+
+
+//add the sessions 
+
+
+// two theatres
+
 // now a program generates seats for the following (our data entry)
 for (char  row = 'A'; row <= 'G'; row++)
 {
@@ -24,47 +83,36 @@ for (char  row = 'A'; row <= 'G'; row++)
     
 }
 
+//I could use the list of sessions in theatres here to create a new session when using the csv file.
 
-
-//chat gpt to understand how time is inputed into to code.
-DateTime one = new DateTime(2024, 2, 14, 14, 30,0,0);
-DateTime two = new DateTime(2024, 2, 15, 22, 30, 0, 0, 0);
-
-var sesh111 = theatre1.ScheduleSession(one, starWars);
-var sesh112 = theatre1.ScheduleSession(DateTime.Now, starWars);
-var sesh121 = theatre1.ScheduleSession(one, hangover);
-var sesh122 = theatre1.ScheduleSession(DateTime.Now, hangover);
-var sesh131 = theatre1.ScheduleSession(DateTime.Now, oppenheimer);
-var sesh132 = theatre1.ScheduleSession(one, oppenheimer);
-
-var sesh211 = theatre2.ScheduleSession(two, starWars);
-var sesh212 = theatre2.ScheduleSession(DateTime.Now, starWars);
-var sesh221 = theatre2.ScheduleSession(two, hangover);
-var sesh222 = theatre2.ScheduleSession(DateTime.Now, hangover);
-var sesh231 = theatre2.ScheduleSession(DateTime.Now, oppenheimer);
-var sesh232 = theatre2.ScheduleSession(two, oppenheimer);
-
-var seat1 = theatre1.FindSeatByCode("A-4");
+var seat1 = theatre1.FindSeatByCode("A-4"); // this finds a seat and then makes seat1 that specific seat.
 var seat2 = theatre1.FindSeatByCode("B-2");
 var seat3 = theatre1.FindSeatByCode("C-5");
 var seat4 = theatre1.FindSeatByCode("C-4");
 var seat5 = theatre1.FindSeatByCode("C-2");
 var seat6 = theatre1.FindSeatByCode("C-3");
 
-var ticketTest1 = sesh111.IssueTicket("Daniel",seat1);
-var ticketTest2 = sesh111.IssueTicket("Oliver", seat2);
-var ticketTest3 = sesh111.IssueTicket("Sean", seat3);
-var ticketTest4 = sesh111.IssueTicket("Saxon", seat4);
-var ticketTest5 = sesh111.IssueTicket("James", seat5);
-var ticketTest6 = sesh111.IssueTicket("George", seat6);
+int randomsessionSelection= random.Next(0, 6);
+
+var ticketTest1 = theatre1.Sessions[randomsessionSelection].IssueTicket("Daniel", seat1);
+ randomsessionSelection = random.Next(0, 6);
+var ticketTest2 = theatre1.Sessions[randomsessionSelection].IssueTicket("Oliver", seat2);
+ randomsessionSelection = random.Next(0, 6);
+var ticketTest3 = theatre1.Sessions[randomsessionSelection].IssueTicket("Sean", seat3);
+ randomsessionSelection = random.Next(0, 6);
+var ticketTest4 = theatre1.Sessions[randomsessionSelection].IssueTicket("Saxon", seat4);
+ randomsessionSelection = random.Next(0, 6);
+var ticketTest5 = theatre1.Sessions[randomsessionSelection].IssueTicket("James", seat5);
+ randomsessionSelection = random.Next(0, 6);
+var ticketTest6 = theatre1.Sessions[randomsessionSelection].IssueTicket("George", seat6);
 
 
 // ---------------------------------------------------------------------------------------------------------------
 
 
 //I need a theatre selection first.
-
-Console.WriteLine("Select a Movie");
+Console.WriteLine($"Welcome to {company.TradingName}'s!");
+Console.WriteLine("Please start by selecting a Movie");
 
 for (int i = 0; i < company.Movies.Count; i++)
 {
@@ -240,7 +288,7 @@ for (char row = 'A'; row < 'G'; row++)
 
         if (availSeats[counter2].Row == 'X')
         {
-            Console.Write($"  [X]");
+            Console.Write($"  [ ]");
 
         }
         else
@@ -264,7 +312,7 @@ string userSelectionTicket = Console.ReadLine();
 
 //TODO: Create a method to check double bookings when issuing
 
-//TODO: Data creation, excel to here on bookings
+//TODO: Data creation, excel to here on bookings -- i want to do this next, then i can use my csv reader thingy.
 
 //TODO: There could be an easy way to control booking times with numbers, as supposed to the sesh111 method, even though in my mind that works qutie well.
 

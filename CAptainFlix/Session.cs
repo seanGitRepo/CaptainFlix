@@ -3,15 +3,18 @@
     public class Session
     {
 
-        public Session(DateTime startDateTime, Theatre theatre, Movie movie) {
+        public Session(string sessionCode, DateTime startDateTime, Theatre theatre, Movie movie) {
             StartDateTime = startDateTime;
             Theatre = theatre;
             Movie = movie;
+            SessionCode = sessionCode;
         }
 
         public DateTime StartDateTime {get;set;}
         public Theatre Theatre { get;set;}
         public Movie Movie { get;set;}
+
+        public string SessionCode { get;set;}
 
 
         public List<Seat> GetavaliableSeats(Theatre a)
