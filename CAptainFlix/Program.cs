@@ -15,6 +15,7 @@ var theatre2 = company.AddTheatre("Hoyts");
 StreamReader movieTitles = new StreamReader($"../../../{company.TradingName}Data/movies.csv");
 StreamReader movieTimes = new StreamReader($"../../../{company.TradingName}Data/times.csv");
 StreamReader movieSessions = new StreamReader($"../../../{company.TradingName}Data/sessions.csv");
+StreamReader movieFakeSeats = new StreamReader($"../../../{company.TradingName}Data/fakeSeats.csv");
 
 List<string> foundTitles = new List<string>();
 string line; 
@@ -66,11 +67,6 @@ while ((line = movieSessions.ReadLine()) != null)
 }
 
 
-//add the sessions 
-
-
-// two theatres
-
 // now a program generates seats for the following (our data entry)
 for (char  row = 'A'; row <= 'G'; row++)
 {
@@ -83,28 +79,31 @@ for (char  row = 'A'; row <= 'G'; row++)
     
 }
 
-//I could use the list of sessions in theatres here to create a new session when using the csv file.
+//I essentially have to create this as a loop 
+int randomsessionSelection = random.Next(0, 6);
+while ((line = movieFakeSeats.ReadLine()) != null)
+{
+    string[] split = line.Split(',');//not sure why it doesn't let me just int.parse the split entitty 
+    
+    //seat theatre name 
 
-var seat1 = theatre1.FindSeatByCode("A-4"); // this finds a seat and then makes seat1 that specific seat.
-var seat2 = theatre1.FindSeatByCode("B-2");
-var seat3 = theatre1.FindSeatByCode("C-5");
-var seat4 = theatre1.FindSeatByCode("C-4");
-var seat5 = theatre1.FindSeatByCode("C-2");
-var seat6 = theatre1.FindSeatByCode("C-3");
+    if (split[1] == "1")
+    {
+        var tempSeat = theatre1.FindSeatByCode(split[0]);
+        randomsessionSelection = random.Next(0, 6);
+        theatre1.Sessions[randomsessionSelection].IssueTicket(split[2], tempSeat);
+    }
+    else if (split[1] == "2")
+    {
+        var tempSeat = theatre2.FindSeatByCode(split[0]);
+        randomsessionSelection = random.Next(0, 6);
+        theatre2.Sessions[randomsessionSelection].IssueTicket(split[2], tempSeat);
+    }
 
-int randomsessionSelection= random.Next(0, 6);
+    //this now sucesfully registers the times into the program
+}
 
-var ticketTest1 = theatre1.Sessions[randomsessionSelection].IssueTicket("Daniel", seat1);
- randomsessionSelection = random.Next(0, 6);
-var ticketTest2 = theatre1.Sessions[randomsessionSelection].IssueTicket("Oliver", seat2);
- randomsessionSelection = random.Next(0, 6);
-var ticketTest3 = theatre1.Sessions[randomsessionSelection].IssueTicket("Sean", seat3);
- randomsessionSelection = random.Next(0, 6);
-var ticketTest4 = theatre1.Sessions[randomsessionSelection].IssueTicket("Saxon", seat4);
- randomsessionSelection = random.Next(0, 6);
-var ticketTest5 = theatre1.Sessions[randomsessionSelection].IssueTicket("James", seat5);
- randomsessionSelection = random.Next(0, 6);
-var ticketTest6 = theatre1.Sessions[randomsessionSelection].IssueTicket("George", seat6);
+
 
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -308,11 +307,11 @@ string userSelectionTicket = Console.ReadLine();
 // chosenFilm,chosenCinema,ChosenSession creates my current profile of the person
 
 
-//TODO: Create the way to select a ticket
+//TODO: Create the way to select a ticket 
 
 //TODO: Create a method to check double bookings when issuing
 
-//TODO: Data creation, excel to here on bookings -- i want to do this next, then i can use my csv reader thingy.
+//TODO: Data creation, excel to here on bookings -- i want to do this next, then i can use my csv reader thingy. 
 
 //TODO: There could be an easy way to control booking times with numbers, as supposed to the sesh111 method, even though in my mind that works qutie well.
 
